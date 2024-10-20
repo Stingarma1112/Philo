@@ -6,7 +6,7 @@
 #    By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/20 23:22:14 by lsaumon           #+#    #+#              #
-#    Updated: 2024/10/20 23:42:10 by lsaumon          ###   ########.fr        #
+#    Updated: 2024/10/21 01:40:52 by lsaumon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME 		=	philo
 
 SRC_DIR 	=	srcs
 SRC 		=	$(addprefix $(SRC_DIR)/, main.c) \
+				$(addprefix $(SRC_DIR)/, init/init.c) \
 
 INCLUDES	=	./includes
 LIBFT	= ./libft/libft.a
@@ -26,7 +27,7 @@ OBJS		= $(addprefix $(OBJS_DIR)/, $(SRC:.c=.o))
 CC 		= gcc
 
 CFLAGS 	= -Wall -Wextra -Werror -g3 -I$(INCLUDES)
-CFLAGSD = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGSD = -Wall -Wextra -Werror -g3 #-fsanitize=address
 
 
 RED			=\033[0;31m

@@ -6,7 +6,7 @@
 #    By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 13:35:35 by lsaumon           #+#    #+#              #
-#    Updated: 2024/03/09 03:11:49 by lsaumon          ###   ########.fr        #
+#    Updated: 2024/10/21 01:41:15 by lsaumon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ OBJS		:= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 # =================================== FLAGS ====================================
 
 CC =	cc
-FLAGS =	-Wall -Wextra -g3 -fsanitize=address -Werror
+FLAGS =	-Wall -Wextra -g3 -Werror #-fsanitize=address
 RM =	rm -rf
 AR =	ar rcs
 
