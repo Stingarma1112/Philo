@@ -1,6 +1,6 @@
 Étape                                                             ,Description                                                                                                ,Statut
 Initialiser les paramètres globaux                                ,Initialiser la structure t_params avec les valeurs passées en arguments                                    ,OK
-Initialiser les mutexes pour les fourchettes                      ,Initialiser un mutex pour chaque fourchette et un mutex pour l'affichage                                   ,À faire
+Initialiser les mutexes pour les fourchettes                      ,Initialiser un mutex pour chaque fourchette et un mutex pour l'affichage                                   ,OK
 Initialiser les philosophes avec leurs fourchettes                ,Assigner les fourchettes gauche et droite à chaque philosophe et lier les paramètres globaux               ,À faire
 Créer les threads pour chaque philosophe                          ,Utiliser pthread_create pour démarrer un thread pour chaque philosophe                                     ,À faire
 "Implémenter la routine des philosophes (manger, dormir, penser)" ,"Écrire la fonction philosopher_routine qui gère l'alternance entre manger, dormir et penser"              ,À faire

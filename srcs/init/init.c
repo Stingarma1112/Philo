@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 00:20:10 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 01:45:07 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/21 18:53:37 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,29 @@ int	init_params(t_params *params, int argc, char **argv)
 		return (0);
 	}
 	params->sim_run = 1;
+	return (1);
+}
+
+int	init_mutexes(t_params *params)
+{
+	int	i;
+
+	i = 0;
+	while (i < params->nbr_of_philo)
+	{
+		if (pthread_mutex_init(&params->forks[i], NULL) != 0)
+		{
+			printf("Error: Failed to init mutex for fork %d\n", i);
+			destroy_mutexes(params, i);
+			return (0);
+		}
+		i++;
+	}
+	if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
+	{
+		printf("Error: Failed to init print mutex\n");
+		destroy_mutexes(params, params->nbr_of_philo);
+		return (0);
+	}
 	return (1);
 }

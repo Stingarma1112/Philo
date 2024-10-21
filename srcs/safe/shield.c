@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   shield.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/20 23:22:40 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 18:51:58 by lsaumon          ###   ########.fr       */
+/*   Created: 2024/10/21 18:46:21 by lsaumon           #+#    #+#             */
+/*   Updated: 2024/10/21 18:48:07 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/philo.h"
+#include "../../include/philo.h"
 
-int main(int argc, char **argv)
+void	destroy_mutexes(t_params *params, int count)
 {
-	t_params	params;
+	int	i;
 
-	if (!init_params(&params, argc, argv))
-		return (1);
-	if (!init_mutexes(&params))
+	i = 0;
+	while (i < count)
 	{
-		free(params.forks);
-		return (1);
+		pthread_mutex_destroy(&params->forks[i]);
+		i++;
 	}
-	return (0);
+	pthread_mutex_destroy(&params->print_mutex);
 }

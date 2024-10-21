@@ -6,7 +6,7 @@
 #    By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/20 23:22:14 by lsaumon           #+#    #+#              #
-#    Updated: 2024/10/21 01:40:52 by lsaumon          ###   ########.fr        #
+#    Updated: 2024/10/21 18:50:42 by lsaumon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME 		=	philo
 SRC_DIR 	=	srcs
 SRC 		=	$(addprefix $(SRC_DIR)/, main.c) \
 				$(addprefix $(SRC_DIR)/, init/init.c) \
+				$(addprefix $(SRC_DIR)/, safe/shield.c) \
 
 INCLUDES	=	./includes
 LIBFT	= ./libft/libft.a
