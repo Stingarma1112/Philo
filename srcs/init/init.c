@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 00:20:10 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 20:18:33 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/21 23:54:47 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	init_philosophers(t_philo *philosophers, t_params *params)
 		philosophers[i].id = i + 1;
 		philosophers[i].left_fork = &params->forks[i];
 		philosophers[i].right_fork = &params->forks[(i + 1) % params->nbr_of_philo];
-		philosophers[i].last_meal_time = 0;
+		philosophers[i].last_meal_time = get_time();
 		philosophers[i].meals_eater = 0;
 		philosophers[i].params = params;
 		i++;

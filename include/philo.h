@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 22:44:28 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/21 23:51:19 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_params
 	int				meals_required;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	sim_run_mutex;
 	int				sim_run;
 	long			start_time;	
 }					t_params;
@@ -93,6 +94,7 @@ int	init_philosophers(t_philo *philosophers, t_params *params);
 //=====================================PARSING.C================================//
 
 int	parsing(t_philo	**philosophers, t_params *params, int argc, char **argv);
+int	check_death(t_philo *philosopher);
 
 //=====================================SHIELD.C=================================//
 
