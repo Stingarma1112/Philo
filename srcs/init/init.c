@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 00:20:10 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 18:53:37 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/21 20:18:33 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	init_mutexes(t_params *params)
 		if (pthread_mutex_init(&params->forks[i], NULL) != 0)
 		{
 			printf("Error: Failed to init mutex for fork %d\n", i);
-			destroy_mutexes(params, i);
+			free_ressources(NULL, params, i);
 			return (0);
 		}
 		i++;
@@ -70,8 +70,26 @@ int	init_mutexes(t_params *params)
 	if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
 	{
 		printf("Error: Failed to init print mutex\n");
-		destroy_mutexes(params, params->nbr_of_philo);
+		free_ressources(NULL, params, params->nbr_of_philo);
 		return (0);
+	}
+	return (1);
+}
+
+int	init_philosophers(t_philo *philosophers, t_params *params)
+{
+	int	i;
+
+	i = 0;
+	while ( i < params->nbr_of_philo)
+	{
+		philosophers[i].id = i + 1;
+		philosophers[i].left_fork = &params->forks[i];
+		philosophers[i].right_fork = &params->forks[(i + 1) % params->nbr_of_philo];
+		philosophers[i].last_meal_time = 0;
+		philosophers[i].meals_eater = 0;
+		philosophers[i].params = params;
+		i++;
 	}
 	return (1);
 }
