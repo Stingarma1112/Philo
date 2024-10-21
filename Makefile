@@ -6,7 +6,7 @@
 #    By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/20 23:22:14 by lsaumon           #+#    #+#              #
-#    Updated: 2024/10/21 19:59:03 by lsaumon          ###   ########.fr        #
+#    Updated: 2024/10/21 22:46:57 by lsaumon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC 		=	$(addprefix $(SRC_DIR)/, main.c) \
 				$(addprefix $(SRC_DIR)/, init/init.c) \
 				$(addprefix $(SRC_DIR)/, parsing/shield.c) \
 				$(addprefix $(SRC_DIR)/, parsing/parsing.c) \
+				$(addprefix $(SRC_DIR)/, exec/routine.c) \
 
 INCLUDES	=	./includes
 LIBFT	= ./libft/libft.a
