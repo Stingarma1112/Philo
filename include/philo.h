@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 23:51:19 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:04:32 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ int	check_death(t_philo *philosopher);
 //=====================================SHIELD.C=================================//
 
 void	free_ressources(t_philo *philosophers, t_params *params, int count);
-void	ft_usleep(long ms);
-long	get_time(void);
+void	ft_usleep(long time_in_ms, t_params *params);
+long	get_time(t_params *params);
 
 /*.----------------.  .----------------.  .----------------.  .----------------. 
 | .--------------. || .--------------. || .--------------. || .--------------. |

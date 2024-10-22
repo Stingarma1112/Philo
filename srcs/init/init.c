@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 00:20:10 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 23:54:47 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:07:49 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,12 @@ int	init_mutexes(t_params *params)
 		free_ressources(NULL, params, params->nbr_of_philo);
 		return (0);
 	}
+	if (pthread_mutex_init(&params->sim_run_mutex, NULL) != 0)
+	{
+		printf("Error: Failed to init sim_run mutex\n");
+		free_ressources(NULL, params, params->nbr_of_philo);
+		return (0);
+	}
 	return (1);
 }
 
@@ -86,8 +92,9 @@ int	init_philosophers(t_philo *philosophers, t_params *params)
 		philosophers[i].id = i + 1;
 		philosophers[i].left_fork = &params->forks[i];
 		philosophers[i].right_fork = &params->forks[(i + 1) % params->nbr_of_philo];
-		philosophers[i].last_meal_time = get_time();
+		philosophers[i].last_meal_time = get_time(params);
 		philosophers[i].meals_eater = 0;
+		params->start_time = get_time(params);
 		philosophers[i].params = params;
 		i++;
 	}

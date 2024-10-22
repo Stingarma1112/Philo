@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:54:31 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/22 01:11:13 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/22 17:08:22 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_death(t_philo *philosopher)
 {
 	long	current_time;
 
-	current_time = get_time();
+	current_time = get_time(philosopher->params);
 	if ((current_time - philosopher->last_meal_time)
 		> philosopher->params->time_to_die)
 	{
