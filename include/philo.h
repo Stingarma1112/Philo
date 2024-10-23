@@ -6,21 +6,21 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/23 07:16:56 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/23 07:26:06 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../libft/includes/libft.h"
 # include "../libft/includes/ft_printf.h"
 # include "../libft/includes/get_next_line.h"
+# include "../libft/includes/libft.h"
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <unistd.h>
 # include <sys/time.h>
-# include <pthread.h>
+# include <unistd.h>
 
 typedef struct s_params
 {
@@ -35,7 +35,7 @@ typedef struct s_params
 	pthread_mutex_t	finish_mutex;
 	int				sim_run;
 	int				philosophers_finished;
-	long			start_time;	
+	long			start_time;
 }					t_params;
 
 typedef struct s_philo
@@ -49,39 +49,36 @@ typedef struct s_philo
 	t_params		*params;
 }					t_philo;
 
-//INIT.C
+// INIT.C
+int					validate_params(t_params *params);
+int					init_params(t_params *params, int argc, char **argv);
+int					init_fork_mutexes(t_params *params);
+int					init_other_mutexes(t_params *params);
+int					init_philosophers(t_philo *philosophers, t_params *params);
 
-int	validate_params(t_params *params);
-int	init_params(t_params *params, int argc, char **argv);
-int	init_fork_mutexes(t_params *params);
-int	init_other_mutexes(t_params *params);
-int	init_philosophers(t_philo *philosophers, t_params *params);
+// PARSING.C
+int					parsing(t_philo **philo, t_params *params, int argc,
+						char **argv);
+int					check_death(t_philo *philosopher);
+void				safe_print(t_philo *philosopher, char *message);
 
-//PARSING.C
+// SHIELD.C
+void				free_ressources(t_philo *philosophers, t_params *params,
+						int count);
+void				ft_usleep(long time_in_ms, t_philo *philosopher);
+long				get_time(t_params *params);
+long				get_current_time_in_ms(void);
 
-int		parsing(t_philo	**philo, t_params *params, int argc, char **argv);
-int		check_death(t_philo *philosopher);
-void	safe_print(t_philo *philosopher, char *message);
+// ACTION.C
+void				philosopher_think(t_philo *philosopher);
+void				check_meals_eaten(t_philo *philosopher);
+void				philosopher_eat(t_philo *philosopher);
+void				philosopher_take_forks(t_philo *philosopher);
+void				philosopher_sleep(t_philo *philosopher);
 
-//SHIELD.C
-
-void	free_ressources(t_philo *philosophers, t_params *params, int count);
-void	ft_usleep(long time_in_ms, t_philo *philosopher);
-long	get_time(t_params *params);
-long	get_current_time_in_ms(void);
-
-//ACTION.C
-
-void	philosopher_think(t_philo *philosopher);
-void	check_meals_eaten(t_philo *philosopher);
-void	philosopher_eat(t_philo *philosopher);
-void	philosopher_take_forks(t_philo *philosopher);
-void	philosopher_sleep(t_philo *philosopher);
-
-//ROUTINE.C
-
-void	*philosopher_routine(void *arg);
-int		check_simulation_status(t_philo *philosopher);
-int		check_meals(t_philo *philosopher);
+// ROUTINE.C
+void				*philosopher_routine(void *arg);
+int					check_simulation_status(t_philo *philosopher);
+int					check_meals(t_philo *philosopher);
 
 #endif
