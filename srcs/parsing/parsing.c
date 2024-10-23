@@ -6,31 +6,31 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 19:54:31 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/22 17:08:22 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/23 07:16:05 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-int	parsing(t_philo	**philosophers, t_params *params, int argc, char **argv)
+int	parsing(t_philo	**philo, t_params *params, int argc, char **argv)
 {
 	if (!init_params(params, argc, argv))
 		return (1);
-	if (!init_mutexes(params))
+	if (!init_fork_mutexes(params) && !init_other_mutexes(params))
 	{
 		free(params->forks);
 		return (1);
 	}
-	*philosophers = malloc(sizeof(t_philo) * params->nbr_of_philo);
-	if (!(*philosophers))
+	*philo = malloc(sizeof(t_philo) * params->nbr_of_philo);
+	if (!(*philo))
 	{
 		printf("Error: Memory allocation failed\n");
 		free(params->forks);
 		return (1);
 	}
-	if (!init_philosophers(*philosophers, params))
+	if (!init_philosophers(*philo, params))
 	{
-		free(*philosophers);
+		free(*philo);
 		free(params->forks);
 		return (1);
 	}
@@ -45,13 +45,38 @@ int	check_death(t_philo *philosopher)
 	if ((current_time - philosopher->last_meal_time)
 		> philosopher->params->time_to_die)
 	{
-		pthread_mutex_lock(&philosopher->params->print_mutex);
-		printf("Philo %d has died at %ld ms.\n", philosopher->id, current_time);
-		pthread_mutex_unlock(&philosopher->params->print_mutex);
 		pthread_mutex_lock(&philosopher->params->sim_run_mutex);
-		philosopher->params->sim_run = 0;
-		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+		if (philosopher->params->sim_run)
+		{
+			philosopher->params->sim_run = 0;
+			pthread_mutex_lock(&philosopher->params->print_mutex);
+			pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+			printf("[%ld ms]Philo %d has died.\n",
+				current_time, philosopher->id);
+			pthread_mutex_unlock(&philosopher->params->print_mutex);
+		}
+		else
+		{
+			pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+		}
 		return (1);
 	}
 	return (0);
+}
+
+void	safe_print(t_philo *philosopher, char *message)
+{
+	pthread_mutex_lock(&philosopher->params->sim_run_mutex);
+	if (philosopher->params->sim_run)
+	{
+		pthread_mutex_lock(&philosopher->params->print_mutex);
+		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+		printf("[%ld ms]Philo %d %s\n",
+			get_time(philosopher->params), philosopher->id, message);
+		pthread_mutex_unlock(&philosopher->params->print_mutex);
+	}
+	else
+	{
+		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+	}
 }

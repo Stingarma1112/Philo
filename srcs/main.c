@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:22:40 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/21 22:51:54 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/23 06:30:41 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ int main(int argc, char **argv)
 	
 	if (parsing(&philosophers, &params, argc, argv))
 		return (1);
+	params.start_time = get_current_time_in_ms();
+	for (int i = 0; i < params.nbr_of_philo; i++)
+	{
+    	philosophers[i].last_meal_time = params.start_time;
+	}
 	i = 0;
 	while (i < params.nbr_of_philo)
 	{

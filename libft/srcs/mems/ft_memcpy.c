@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 23:25:44 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/03/08 03:31:26 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/23 07:08:12 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	{
 		((char *)dest)[i] = ((char *)src)[i];
 		i++;
-	}	
+	}
 	return ((void *)dest);
 }
