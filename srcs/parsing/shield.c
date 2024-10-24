@@ -6,13 +6,13 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:46:21 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/23 06:53:39 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:04:05 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-void	free_ressources(t_philo *philosophers, t_params *params, int count)
+void	free_resources(t_philo *philosophers, t_params *params, int count)
 {
 	int	i;
 
@@ -20,6 +20,7 @@ void	free_ressources(t_philo *philosophers, t_params *params, int count)
 	while (i < count)
 	{
 		pthread_mutex_destroy(&params->forks[i]);
+		pthread_mutex_destroy(&philosophers[i].meal_time_mutex);
 		i++;
 	}
 	if (count == params->nbr_of_philo)
@@ -46,8 +47,8 @@ void	ft_usleep(long time_in_ms, t_philo *philosopher)
 			break ;
 		}
 		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
-		if (check_death(philosopher))
-			break ;
+		// if (check_death(philosopher))
+		// 	break ;
 		usleep(1000);
 	}
 }
@@ -58,7 +59,8 @@ long	get_current_time_in_ms(void)
 	long			time_in_ms;
 
 	gettimeofday(&current_time, NULL);
-	time_in_ms = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
+	time_in_ms = (current_time.tv_sec * 1000)
+		+ (current_time.tv_usec / 1000);
 	return (time_in_ms);
 }
 

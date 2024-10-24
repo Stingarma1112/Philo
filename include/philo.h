@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/23 07:26:06 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:03:26 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_philo
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	long			last_meal_time;
+	pthread_mutex_t	meal_time_mutex;
 	int				meals_eaten;
 	t_params		*params;
 }					t_philo;
@@ -59,11 +60,11 @@ int					init_philosophers(t_philo *philosophers, t_params *params);
 // PARSING.C
 int					parsing(t_philo **philo, t_params *params, int argc,
 						char **argv);
-int					check_death(t_philo *philosopher);
+//int					check_death(t_philo *philosopher);
 void				safe_print(t_philo *philosopher, char *message);
 
 // SHIELD.C
-void				free_ressources(t_philo *philosophers, t_params *params,
+void				free_resources(t_philo *philosophers, t_params *params,
 						int count);
 void				ft_usleep(long time_in_ms, t_philo *philosopher);
 long				get_time(t_params *params);
@@ -71,14 +72,15 @@ long				get_current_time_in_ms(void);
 
 // ACTION.C
 void				philosopher_think(t_philo *philosopher);
-void				check_meals_eaten(t_philo *philosopher);
+//void				check_meals_eaten(t_philo *philosopher);
 void				philosopher_eat(t_philo *philosopher);
 void				philosopher_take_forks(t_philo *philosopher);
 void				philosopher_sleep(t_philo *philosopher);
 
 // ROUTINE.C
 void				*philosopher_routine(void *arg);
-int					check_simulation_status(t_philo *philosopher);
-int					check_meals(t_philo *philosopher);
+void				*monitor_routine(void *arg);
+// int					check_simulation_status(t_philo *philosopher);
+// int					check_meals(t_philo *philosopher);
 
 #endif

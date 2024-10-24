@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 00:20:10 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/23 06:57:42 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 17:03:45 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	init_fork_mutexes(t_params *params)
 		if (pthread_mutex_init(&params->forks[i], NULL) != 0)
 		{
 			printf("Error: Failed to init mutex for fork %d\n", i);
-			free_ressources(NULL, params, i);
+			free_resources(NULL, params, i);
 			return (0);
 		}
 		i++;
@@ -76,19 +76,19 @@ int	init_other_mutexes(t_params *params)
 	if (pthread_mutex_init(&params->print_mutex, NULL) != 0)
 	{
 		printf("Error: Failed to init print mutex\n");
-		free_ressources(NULL, params, params->nbr_of_philo);
+		free_resources(NULL, params, params->nbr_of_philo);
 		return (0);
 	}
 	if (pthread_mutex_init(&params->sim_run_mutex, NULL) != 0)
 	{
 		printf("Error: Failed to init sim_run mutex\n");
-		free_ressources(NULL, params, params->nbr_of_philo);
+		free_resources(NULL, params, params->nbr_of_philo);
 		return (0);
 	}
 	if (pthread_mutex_init(&params->finish_mutex, NULL) != 0)
 	{
 		printf("Error: Failed to init finish mutex\n");
-		free_ressources(NULL, params, params->nbr_of_philo);
+		free_resources(NULL, params, params->nbr_of_philo);
 		return (0);
 	}
 	return (1);
@@ -108,6 +108,12 @@ int	init_philosophers(t_philo *philosophers, t_params *params)
 		philosophers[i].last_meal_time = get_time(params);
 		philosophers[i].meals_eaten = 0;
 		philosophers[i].params = params;
+		if (pthread_mutex_init(&philosophers[i].meal_time_mutex, NULL) != 0)
+		{
+			printf("Error: Failed to init meal_time mutex for philosopher %d\n",
+				philosophers[i].id);
+			return (0);
+		}
 		i++;
 	}
 	return (1);
