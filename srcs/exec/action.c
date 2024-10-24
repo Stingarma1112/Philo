@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 20:59:05 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/24 17:00:56 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 18:27:34 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philosopher_think(t_philo *philosopher)
 {
 	safe_print(philosopher, "is thinking");
-	ft_usleep(philosopher->params->time_to_sleep, philosopher);
+	// ft_usleep(philosopher->params->time_to_sleep, philosopher);
 }
 
 void	philosopher_take_forks(t_philo *philosopher)

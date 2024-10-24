@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 06:58:51 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/24 16:59:57 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 18:26:20 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	*philosopher_routine(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
-		philosopher_think(philosopher);
 		philosopher_eat(philosopher);
 		philosopher_sleep(philosopher);
+		philosopher_think(philosopher);
 	}
 	return (NULL);
 }
