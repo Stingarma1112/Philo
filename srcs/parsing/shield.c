@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:46:21 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/24 17:04:05 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/24 19:11:36 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ void	ft_usleep(long time_in_ms, t_philo *philosopher)
 			break ;
 		}
 		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
-		// if (check_death(philosopher))
-		// 	break ;
 		usleep(1000);
 	}
 }

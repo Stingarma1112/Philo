@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/24 17:03:26 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/25 09:40:14 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int					init_philosophers(t_philo *philosophers, t_params *params);
 // PARSING.C
 int					parsing(t_philo **philo, t_params *params, int argc,
 						char **argv);
-//int					check_death(t_philo *philosopher);
 void				safe_print(t_philo *philosopher, char *message);
 
 // SHIELD.C
@@ -72,15 +71,16 @@ long				get_current_time_in_ms(void);
 
 // ACTION.C
 void				philosopher_think(t_philo *philosopher);
-//void				check_meals_eaten(t_philo *philosopher);
 void				philosopher_eat(t_philo *philosopher);
 void				philosopher_take_forks(t_philo *philosopher);
 void				philosopher_sleep(t_philo *philosopher);
+void				one_philo_one_fork(t_philo *philosopher);
 
 // ROUTINE.C
 void				*philosopher_routine(void *arg);
+void				check_philosopher_death(t_philo *philosophers, t_params *params, int i);
+int					check_all_finished(t_philo *philosophers, t_params *params);
 void				*monitor_routine(void *arg);
-// int					check_simulation_status(t_philo *philosopher);
-// int					check_meals(t_philo *philosopher);
+int					monitor_philosophers(t_philo *philosophers, t_params *params);
 
 #endif
