@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/23 06:58:51 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/25 09:58:24 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:06:21 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,10 @@ void	*philosopher_routine(void *arg)
 		usleep(100);
 	while (1)
 	{
-		pthread_mutex_lock(&philosopher->params->sim_run_mutex);
-		if (!philosopher->params->sim_run)
-		{
-			pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+		if (check_simulation_status(philosopher))
 			break ;
-		}
-		pthread_mutex_unlock(&philosopher->params->sim_run_mutex);
+		if (check_meals_finished(philosopher))
+			break ;
 		philosopher_eat(philosopher);
 		philosopher_sleep(philosopher);
 		philosopher_think(philosopher);
@@ -43,14 +40,16 @@ void	*philosopher_routine(void *arg)
 void	check_philosopher_death(t_philo *philosophers, t_params *params, int i)
 {
 	pthread_mutex_lock(&philosophers[i].meal_time_mutex);
-	if ((get_time(params) - philosophers[i].last_meal_time) > params->time_to_die)
+	if ((get_time(params) - philosophers[i].last_meal_time)
+		> params->time_to_die)
 	{
 		pthread_mutex_lock(&params->sim_run_mutex);
 		if (params->sim_run)
 		{
 			params->sim_run = 0;
 			pthread_mutex_lock(&params->print_mutex);
-			printf("[%ld ms] Philo %d has died.\n", get_time(params), philosophers[i].id);
+			printf("[%ld ms] Philo %d has died.\n",
+				get_time(params), philosophers[i].id);
 			pthread_mutex_unlock(&params->print_mutex);
 		}
 		pthread_mutex_unlock(&params->sim_run_mutex);
@@ -70,7 +69,8 @@ int	check_all_finished(t_philo *philosophers, t_params *params)
 	while (i < params->nbr_of_philo)
 	{
 		pthread_mutex_lock(&params->finish_mutex);
-		if (params->meals_required == -1 || philosophers[i].meals_eaten < params->meals_required)
+		if (params->meals_required == -1
+			|| philosophers[i].meals_eaten < params->meals_required)
 			all_finished = 0;
 		pthread_mutex_unlock(&params->finish_mutex);
 		i++;

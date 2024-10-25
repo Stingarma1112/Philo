@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 18:46:21 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/24 19:11:36 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:28:56 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,28 @@ long	get_current_time_in_ms(void)
 long	get_time(t_params *params)
 {
 	return (get_current_time_in_ms() - params->start_time);
+}
+
+int	validate_arguments(int argc, char **argv)
+{
+	int	i;
+	int	value;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_digit_string(argv[i]))
+		{
+			printf("Error: Invalid argument '%s'.\n", argv[i]);
+			return (0);
+		}
+		value = ft_atoi(argv[i]);
+		if (value <= 0)
+		{
+			printf("Error: Argument '%s' must be a positive int.\n", argv[i]);
+			return (0);
+		}
+		i++;
+	}
+	return (1);
 }

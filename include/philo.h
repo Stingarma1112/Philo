@@ -6,7 +6,7 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/25 09:40:14 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/25 22:27:47 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ int					init_philosophers(t_philo *philosophers, t_params *params);
 int					parsing(t_philo **philo, t_params *params, int argc,
 						char **argv);
 void				safe_print(t_philo *philosopher, char *message);
+int					check_simulation_status(t_philo *philosopher);
+int					check_meals_finished(t_philo *philosopher);
+int					is_digit_string(char *str);
 
 // SHIELD.C
 void				free_resources(t_philo *philosophers, t_params *params,
@@ -68,6 +71,7 @@ void				free_resources(t_philo *philosophers, t_params *params,
 void				ft_usleep(long time_in_ms, t_philo *philosopher);
 long				get_time(t_params *params);
 long				get_current_time_in_ms(void);
+int					validate_arguments(int argc, char **argv);
 
 // ACTION.C
 void				philosopher_think(t_philo *philosopher);
@@ -78,9 +82,11 @@ void				one_philo_one_fork(t_philo *philosopher);
 
 // ROUTINE.C
 void				*philosopher_routine(void *arg);
-void				check_philosopher_death(t_philo *philosophers, t_params *params, int i);
+void				check_philosopher_death(t_philo *philosophers,
+						t_params *params, int i);
 int					check_all_finished(t_philo *philosophers, t_params *params);
 void				*monitor_routine(void *arg);
-int					monitor_philosophers(t_philo *philosophers, t_params *params);
+int					monitor_philosophers(t_philo *philosophers,
+						t_params *params);
 
 #endif
