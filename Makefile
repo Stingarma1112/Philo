@@ -6,7 +6,7 @@
 #    By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/20 23:22:14 by lsaumon           #+#    #+#              #
-#    Updated: 2024/10/25 21:49:52 by lsaumon          ###   ########.fr        #
+#    Updated: 2024/10/25 23:04:53 by lsaumon          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,8 +20,7 @@ SRC 		=	$(addprefix $(SRC_DIR)/, main.c) \
 				$(addprefix $(SRC_DIR)/, exec/routine.c) \
 				$(addprefix $(SRC_DIR)/, exec/action.c)
 
-INCLUDES	=	./includes
-LIBFT	= ./libft/libft.a
+INCLUDES	=	./include
 
 NORMINETTE = 	$(shell norminette $(SRC) $(INCLUDES) | grep -c "Error")
 
@@ -47,19 +46,12 @@ all		:	$(NAME)
 
 
 $(NAME)	:	$(OBJS)
-			@make -s -C ./libft
-			@$(CC) $(CFLAGS) $(SRC) -o $(NAME) $(LIBFT)
+			@$(CC) $(CFLAGS) $(SRC) -o $(NAME)
 			@echo "$(BLUE)Compilation$(END) $(VC)PHILO$(END) $(GREEN)OK$(END)"
 
 $(OBJS_DIR)/%.o 	: %.c
 			@mkdir -p $(dir $@)
 			@$(CC) $(CFLAGS) -o $@ -c $^ 
-
-libft	:
-			@make re -s -C ./libft
-
-flibft	:
-			@make fclean -s -C ./libft
 
 norm	: 
 			@if [ $(NORMINETTE) -eq 0 ]; then \
@@ -79,12 +71,12 @@ clean 	:
 			@rm -rf .objs
 			@echo "$(YELLOW)clean$(END) $(VC)PHILO$(END) $(GREEN)OK$(END)"
 
-fclean 	: flibft clean
+fclean 	: clean
 			@$(RM) $(NAME)
 			@echo "$(YELLOW)fclean$(END) $(VC)PHILO$(END) $(GREEN)OK$(END)"
 
 debug 	: $(OBJS)
-			$(CC) $(CFLAGSD) $(SRC) -o $(NAME) $(LIBFT)
+			$(CC) $(CFLAGSD) $(SRC) -o $(NAME)
 			@echo "$(BLUE)Compilation$(END) $(VC)PHILO$(END) $(GREEN)OK$(END) $(YELLOW)DEBUG$(END)"
 
-re 		: fclean all libft
+re 		: fclean all

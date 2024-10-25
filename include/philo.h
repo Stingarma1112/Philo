@@ -6,16 +6,13 @@
 /*   By: lsaumon <lsaumon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/20 23:23:04 by lsaumon           #+#    #+#             */
-/*   Updated: 2024/10/25 22:27:47 by lsaumon          ###   ########.fr       */
+/*   Updated: 2024/10/25 23:01:14 by lsaumon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include "../libft/includes/libft.h"
 # include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -88,5 +85,7 @@ int					check_all_finished(t_philo *philosophers, t_params *params);
 void				*monitor_routine(void *arg);
 int					monitor_philosophers(t_philo *philosophers,
 						t_params *params);
+int					ft_atoi(const char *nptr);
+int					ft_isdigit(int c);
 
 #endif
